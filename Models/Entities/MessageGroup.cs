@@ -18,6 +18,5 @@ namespace Models.Entities
         public int ReceiverId { get; set; }
 
         public ICollection<TextMessage> TextMessages { get; set; }
-        //public Person Name { get; set; }
     }
 }

@@ -14,8 +14,6 @@ namespace DataManager
         public BSChatDBContext(DbContextOptions<BSChatDBContext> options):base(options) { }
 
         public DbSet<Person> Person { get; set; }
-        public DbSet<SharedMessage> SharedMessage { get; set; }
-        public DbSet<OnlineUser> OnlineUser { get; set; }
         public DbSet<MessageGroup> MessageGroup { get; set; }
         public DbSet<TextMessage> TextMessage { get; set; }
 

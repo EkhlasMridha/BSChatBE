@@ -13,7 +13,6 @@ namespace BSChat
         public MappingProfile()
         {
             CreateMap<PersonDto, Person>();
-            CreateMap<SharedMessageDto, SharedMessage>();
         }
     }
 }

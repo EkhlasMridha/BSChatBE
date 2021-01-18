@@ -17,7 +17,6 @@ namespace DataManager
         {
             services.AddDbContext<BSChatDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BSChatDB")));
             services.AddScoped<IAuthDataManager, AuthManager>();
-            services.AddScoped<IOnlineUserManager, OnlineUserManager>();
             services.AddScoped<IChatManager, ChatManager>();
             services.AddScoped<IUserDataManager, UserDataManager>();
         }
