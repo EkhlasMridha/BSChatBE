@@ -11,6 +11,7 @@ using BSChat.Constants;
 using TokenService;
 using AutoMapper;
 using Models.Entities;
+using MediatR;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,53 +21,32 @@ namespace BSChat.Controllers
     [ApiController]
     public class IdentityController : ControllerBase
     {
-        private IAuthDataManager _authDataManager;
-        private ITokenGenerator _tokenGenerator;
-        private IJwtSecrets _jwtSecrets;
-        private IMapper _mapper;
+        private IMediator _mediatR;
 
-        public IdentityController(IAuthDataManager authDataManager, ITokenGenerator tokenGenerator, IJwtSecrets jwtSecrets,IMapper mapper)
+        public IdentityController(IMediator mediator)
         {
-            _authDataManager = authDataManager;
-            _tokenGenerator = tokenGenerator;
-            _jwtSecrets = jwtSecrets;
-            _mapper = mapper;
+            _mediatR = mediator;
         }
 
         // POST api/<IdentityController>
         [HttpPost("signin")]
         public async Task<IActionResult> Signin([FromBody] SignInModel signInModel)
         {
-            var result = await _authDataManager.SignIn(signInModel.Mail);
-            if (result == null)
+            var result = await _mediatR.Send(signInModel);
+
+            if(result == null)
             {
-                return Unauthorized("Incorect credential");
+                return BadRequest("Incorect credential");
             }
 
-            var claims = new Claim[]
-            {
-                new Claim(BSConstants.UserId,result.Id.ToString()),
-            };
-
-            var jwt = await _tokenGenerator.GenerateJwtToken(claims, _jwtSecrets.TokenSecrete, DateTime.Now.AddDays(2));
-
-            var token = new TokenModel
-            {
-                Token = jwt
-             };
-            return Ok(token);
+            return Ok(result);
         }
 
         [HttpPost("signup")]
         public async Task<IActionResult> SignUp([FromBody] PersonDto personDto)
         {
-            if (personDto == null)
-            {
-                return BadRequest("Invalid parameter");
-            }
-            var person = _mapper.Map<Person>(personDto);
-            await _authDataManager.SignUp(person);
-            return Ok();
+            var result = await _mediatR.Send(personDto);
+            return Ok(result);
         }
     }
 }

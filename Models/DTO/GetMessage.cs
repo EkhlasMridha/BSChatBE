@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Models.Entities;
 
 namespace Models.DTO
 {
-    public class TokenModel
+    public class GetMessage : IRequest<ICollection<MessageGroup>>
     {
-        public string Token { get; set; }
+        public int Id { get; set; }
     }
 }

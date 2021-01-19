@@ -12,6 +12,7 @@ using AutoMapper;
 using DataManager.Contracts;
 using BSChat.Constants;
 using System.Security.Claims;
+using MediatR;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BSChat.Controllers
@@ -21,45 +22,29 @@ namespace BSChat.Controllers
     [Authorize]
     public class ChatController : ControllerBase
     {
-        private IHubContext<BSChatBaseHub,IMessageHandler> _baseHub;
-        private IMapper _mapper;
-        private IChatManager _chatManager;
-        public ChatController(IHubContext<BSChatBaseHub, IMessageHandler> baseHub, IMapper mapper, IChatManager chatManager)
+        private IMediator _mediator;
+        public ChatController( IMediator mediator)
         {
-            _baseHub = baseHub;
-            _mapper = mapper;
-            _chatManager = chatManager;
-        }
-        // GET: v1/<ChatController>
-        [HttpGet]
-        public async Task<IActionResult> Get()
-        {  
-            return Ok();
+            _mediator = mediator;
         }
 
         [HttpPost("text")]
         public async Task<IActionResult> SendMessageToExisting([FromBody] MessageGroup textMessage)
         {
-            var message = textMessage.TextMessages.First();
-            message.SentTime = DateTime.Now;
 
-            var result = await _chatManager.StoreInExistingGroup(message);
-            textMessage.TextMessages.Add(result);
-            await _baseHub.Clients.User(textMessage.SenderId.ToString()).RecieveMessageAsync(textMessage);
-            await _baseHub.Clients.User(textMessage.ReceiverId.ToString()).RecieveMessageAsync(textMessage);
+            var result = await _mediator.Send(textMessage);
 
             return Ok(result);
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateGroup([FromBody] MessageGroup messageGroup)
+        public async Task<IActionResult> CreateGroup([FromBody] CreateMessageGroup createMessageGroup)
         {
-            var hasGroup = await _chatManager.HasMessageGroup(messageGroup.SenderId, messageGroup.ReceiverId);
-            if (hasGroup)
+            var group = await _mediator.Send(createMessageGroup);
+            if (group == null)
             {
                 return BadRequest("GROUP_EXIST");
             }
-            var group = await _chatManager.CreateNewGroup(messageGroup);
             return Ok(group);
         }
 
@@ -67,10 +52,13 @@ namespace BSChat.Controllers
         public async Task<IActionResult> GetOldMessages()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            string userID = identity.FindFirst(BSConstants.UserId)?.Value;
-            int id = Int32.Parse(userID);
+            string userID = identity.FindFirst(BSConstants.UserId)?.Value;            
+            var messageId = new GetMessage
+            {
+                Id = Int32.Parse(userID)
+            };
 
-            var result = await _chatManager.GetOldMessages(id);
+            var result = await _mediator.Send(messageId);
 
             return Ok(result);
         }
@@ -80,17 +68,22 @@ namespace BSChat.Controllers
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             string userID = identity.FindFirst(BSConstants.UserId)?.Value;
-            int id = Int32.Parse(userID);
 
-            var result = await _chatManager.GetMessageGroup(friendId, id);
+            var getMessageGroupById = new GetMessageGroupById
+            {
+                friendId = friendId,
+                myId = Int32.Parse(userID)
+            };
+
+            var result = await _mediator.Send(getMessageGroupById);
 
             return Ok(result);
         }
 
         [HttpPost("delete")]
-        public async Task DeleteGroup(MessageGroup messageGroup)
+        public async Task DeleteGroup(DeleteMessageGroup deleteMessageGroup)
         {
-           await _chatManager.DeleteMessage(messageGroup);
+            await _mediator.Send(deleteMessageGroup);
         }
     }
 }

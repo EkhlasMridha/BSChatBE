@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TokenService", "TokenService\TokenService.csproj", "{8EB47150-B6A1-457B-B74E-83A4C56909E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CorsService", "CorsService\CorsService.csproj", "{4C60EDCA-F2A1-426C-9452-F75B04A7C6D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CorsService", "CorsService\CorsService.csproj", "{4C60EDCA-F2A1-426C-9452-F75B04A7C6D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

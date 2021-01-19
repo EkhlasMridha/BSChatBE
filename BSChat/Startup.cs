@@ -17,6 +17,8 @@ using BSChat.CustomExceptionHandler;
 using BSChatService;
 using BSChatService.Hubs;
 using CorsService;
+using MediatR;
+using System.Reflection;
 
 namespace BSChat
 {
@@ -49,6 +51,7 @@ namespace BSChat
             services.AddCorsPolicy(Configuration);
             services.AddBSChatService();
 
+            services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddAutoMapper(typeof(Startup));
         }
 

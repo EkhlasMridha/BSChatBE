@@ -17,6 +17,7 @@ namespace DataManager.Configs
             builder.HasKey(k => k.Id);
             builder.HasMany(m => m.TextMessages)
                     .WithOne(a => a.MessageGroup)
+                    .HasForeignKey(m=>m.GroupId)
                     .OnDelete(DeleteBehavior.Cascade);
         }
     }

@@ -13,6 +13,8 @@ namespace BSChat
         public MappingProfile()
         {
             CreateMap<PersonDto, Person>();
+            CreateMap<CreateMessageGroup, MessageGroup>().ReverseMap();
+            CreateMap<DeleteMessageGroup, MessageGroup>();
         }
     }
 }

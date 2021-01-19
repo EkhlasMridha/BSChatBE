@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MediatR;
+using Models.Entities;
 
-namespace Models.Entities
+namespace Models.DTO
 {
-    public class MessageGroup : IRequest<TextMessage>
+    public class DeleteMessageGroup : IRequest<bool>
     {
-        public MessageGroup()
+        public DeleteMessageGroup()
         {
             TextMessages = new HashSet<TextMessage>();
         }

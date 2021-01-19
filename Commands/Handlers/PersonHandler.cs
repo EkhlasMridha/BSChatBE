@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MediatR;
 
-namespace Models.DTO
+namespace Commands.Handlers
 {
-    public class TokenModel
+    class PersonHandler
     {
-        public string Token { get; set; }
     }
 }
