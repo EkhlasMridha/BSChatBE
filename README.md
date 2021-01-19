@@ -18,6 +18,15 @@ Click on `New query` on the toolbar of Sql server management studio. This will o
 ###### Dowload Tools
 Download visual studio from here [Visual studio 2019](https://visualstudio.microsoft.com/downloads/) (If you don't already have). Install it on your system.
 
+###### Edit DB Connection String
+Go to BSChatBE => BSChat directory, open appsettings.json file.
+Find this section- 
+`"ConnectionStrings": {
+    "BSChatDB": "Server=<Server_name>;Database=BSChatDB;Trusted_Connection=True;MultipleActiveResultSets=True;"
+  },`
+ Enter database server name in the place of `<server_name>`.
+ You can find the database server name from Sql server management studio.
+
 ###### Run solution project
 Now double click and run the `BSChat.sln` file with visual studio . Run the project with IISExpress by clicking on the IISExpress button on the toolbar of visual studio.
 
