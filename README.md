@@ -31,9 +31,10 @@ Download visual studio from here [Visual studio 2019](https://visualstudio.micro
 Ther server name can be found on sql server management studio.
 - ![Server name](/images/servername.png)
 
-###### Run solution project
-* Now double click and run the `BSChat.sln` file with visual studio .
+### How to run the project with visual studio
+* To start the project double click and run the `BSChat.sln` file with visual studio .
 * Run the project with IISExpress by clicking on the IISExpress button on the toolbar of visual studio.
+- ![iisexpress](/images/iis.png)
 
 
 ## Running BS Chat App
