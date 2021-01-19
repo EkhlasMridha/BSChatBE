@@ -2,6 +2,9 @@
 
 This project was generated with .NET 5 .
 
+## Install git
+Download and install [git](https://git-scm.com/downloads). We need git to work with the repository.
+
 ## Database Setup
 
 ###### DB setup
