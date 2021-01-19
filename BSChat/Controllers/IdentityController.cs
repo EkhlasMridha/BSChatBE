@@ -3,14 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DataManager.Contracts;
 using Models.DTO;
-using TokenService.Contracts;
-using System.Security.Claims;
-using BSChat.Constants;
-using TokenService;
-using AutoMapper;
-using Models.Entities;
 using MediatR;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
