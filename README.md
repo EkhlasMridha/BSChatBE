@@ -29,7 +29,7 @@ Download visual studio from here [Visual studio 2019](https://visualstudio.micro
   },`
 * Enter database server name in the place of `<server_name>`.
 Ther server name can be found on sql server management studio.
-![server-name](https://github.com/EkhlasMridha/BSChatBE/tree/master/images/servername.png)
+![server-name](https://github.com/EkhlasMridha/BSChatBE/images/blob/media/servername.png?raw=true)
 
 ###### Run solution project
 * Now double click and run the `BSChat.sln` file with visual studio .
