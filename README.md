@@ -35,8 +35,4 @@ Ther server name can be found on sql server management studio.
 * To start the project double click and run the `BSChat.sln` file with visual studio .
 * Run the project with IISExpress by clicking on the IISExpress button on the toolbar of visual studio.
  ![iisexpress](/images/iis.png)
-
-
-## Running BS Chat App
-
-It needs to run both BSChatBE and BSChatFE project at the same time to make the project functional.
+* Now check the [BSChatFE](https://github.com/EkhlasMridha/BSChatFE) repository for next instructions
